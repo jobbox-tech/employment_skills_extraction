@@ -2,7 +2,7 @@ import os
 import json
 import string
 from bottle import route, run, request, abort
-from urllib2 import urlopen
+from urllib.request import urlopen
 import socket
 
 import process_request
@@ -12,9 +12,7 @@ pr = process_request.process_request()
 def post_data():
 
     # Collect json post data
-    data = ""
-    for line in request.body:
-        data += line.strip()
+    data = request.body.read()
 
     # Exit if post does not contain data
     if not data or data == "":

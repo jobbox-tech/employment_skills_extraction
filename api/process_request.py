@@ -5,9 +5,6 @@ from sklearn.feature_extraction.text import CountVectorizer
 import sys
 import json
 import string
-import urllib2
-from BeautifulSoup import BeautifulSoup
-import ConfigParser
 
 LOG_PRODUCTION  = 0
 LOG_WARNING     = 1
@@ -34,7 +31,7 @@ class process_request:
             self.skill_map[row[0]] = row[1]
             
         f.close()
-        print self.skill_map
+        print(self.skill_map)
 
     def load_stop_words(self, filename):
         stop_words = []
@@ -57,7 +54,7 @@ class process_request:
         if job_id in data.keys():
             job_text = data['%s'%job_id]['job_text']
         else:
-            print "Job id not found"
+            print("Job id not found")
             job_text = None
         return job_text
 
@@ -95,7 +92,7 @@ class process_request:
         job_id = request["job_id"]
         if not self.get_job_text(job_id, method=method):
             msg = "ERROR: job text could not be retrieved"
-            print msg
+            print(msg)
             return msg
         else:
             response = self.map_skill_to_job_id(job_id, method=method)
@@ -119,7 +116,7 @@ def main():
     # test = {"keyword": "retail sales","location":"Washington, DC","context": [{"question":"Can you use devices like scanners?","answer": 1}]}
     #test = {"keyword": "retail sales","location":"Modesto, CA","context": [{"question":"Can you use devices like scanners?","answer": 1}]}
     #print pr.process(json.dumps(test))
-    print pr.process(json.dumps(test))
+    print(pr.process(json.dumps(test)))
     
 
 if __name__ == '__main__':
